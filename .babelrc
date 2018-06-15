@@ -1,0 +1,18 @@
+{
+    "presets": [
+        [ "env", {
+            "targets": {
+                "node": "current"
+            }
+        }]
+    ],
+    "plugins": [
+        "syntax-export-extensions",
+        "syntax-class-properties"
+    ],
+    "env": {
+        "test": {
+            "plugins": ["istanbul"]
+        }
+    }
+}

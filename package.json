@@ -1,0 +1,36 @@
+{
+  "name": "vuex-rest",
+  "version": "0.1.0",
+  "description": "Represent REST resources in Vuex",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm -s run test:lint && npm -s run test:unit",
+    "test:lint": "eslint src",
+    "test:unit": "nyc mocha"
+  },
+  "keywords": [
+    "vuex",
+    "rest",
+    "api",
+    "vuex",
+    "rest",
+    "rest",
+    "resources"
+  ],
+  "author": "Jorgen Evens <jorgen@evens.eu>",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-syntax-export-extensions": "^6.13.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
+  },
+  "dependencies": {
+    "updeep": "^1.0.0"
+  }
+}

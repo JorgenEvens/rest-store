@@ -1,0 +1,25 @@
+image: node:9
+variables:
+  NPM_CONFIG_LOGLEVEL: "warn"
+  NODE_ENV: "test"
+
+cache:
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules
+
+before_script:
+ - NODE_ENV="development" npm install
+
+stages:
+  - test
+
+lint:
+  stage: test
+  script:
+    - npm -s run test:lint
+
+test:
+  stage: test
+  script:
+   - npm -s run test:unit
