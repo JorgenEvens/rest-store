@@ -1,10 +1,11 @@
 import u from 'updeep';
 
-module.exports = function(state) {
+export default
+function attach(state) {
     return u({
         resources: {},
         list: {
             all: []
         }
     }, state);
-};
+}

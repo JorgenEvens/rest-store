@@ -1,8 +1,8 @@
-const assert = require('assert');
+import assert from 'assert';
 
-describe('# attach', () => {
+import attach from '../src/attach';
 
-    const attach = require('../src/attach');
+describe('# attach(root)', () => {
 
     it('Should create state structure', () => {
         const next = attach({});

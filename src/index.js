@@ -11,6 +11,7 @@ export resource from './resource';
 export resources from './resource/list';
 
 export page from './list/page';
+export pageCount from './list/page-count';
 export range from './list/range';
 export ids from './list/ids';
 
