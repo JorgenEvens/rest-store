@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import resources from '../../src/resource/list';
 
-describe('# list(root, ids)', () => {
+describe('# resources(root, ids)', () => {
 
     const fixt_obj1 = { id: 1 };
     const fixt_obj2 = { id: 2 };

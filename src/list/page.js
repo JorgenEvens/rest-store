@@ -1,4 +1,5 @@
 import ids from './ids';
+import _page from './_page';
 import pageCount from './page-count';
 import resources from '../resource/list';
 
@@ -14,9 +15,7 @@ function page(root, listName, page, opts = {}) {
         return [];
 
     const list = root.list[listName];
-    const pageSize = opts.pageSize || list.pageSize || 10;
-    const start = (page - 1) * pageSize;
-    const end = start + (pageSize - 1);
+    const { start, end } = _page(list, page, opts);
 
     const entries = ids(root, listName, start, end);
     return resources(root, entries);

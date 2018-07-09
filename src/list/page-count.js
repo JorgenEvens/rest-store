@@ -1,4 +1,5 @@
 import _total from './_total';
+import _pageSize from './_page-size';
 
 export default
 function pageCount(root, listName, opts = {}) {
@@ -6,7 +7,7 @@ function pageCount(root, listName, opts = {}) {
         return 0;
 
     const list = root.list[listName];
-    const pageSize = opts.pageSize || list.pageSize;
+    const pageSize = _pageSize(list, opts);
     const total = _total(list);
 
     return Math.ceil(total / pageSize);
