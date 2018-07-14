@@ -32,7 +32,7 @@ describe('# expire(root, id)', () => {
         const next = expire(fixt_state, 1);
         const res = next.resources[1];
 
-        assert.deepStrictEqual(res.data, fixt_obj1);
+        assert.deepEqual(res.data, fixt_obj1);
         assert.equal(res.expires, 999, 'expires is set correctly');
         assert.strictEqual(res.state, EXPIRED);
     });

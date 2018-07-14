@@ -82,7 +82,7 @@ describe('# range(root, list, start, end)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 10, 'result has correct length');
 
-        assert.deepStrictEqual(result, [
+        assert.deepEqual(result, [
             { id: 1 }, { id: 2 }, { id: 3 }, null, null, null, null, null, null, null
         ]);
     });
@@ -91,12 +91,12 @@ describe('# range(root, list, start, end)', () => {
         let result;
 
         result = range(fixt_state, 'does-not-exist', 10, 19);
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, []);
 
         result = range(fixt_state, 'entryless', 10, 19);
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, []);
 
         result = range(fixt_state, 'total', 100, 109);
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, []);
     });
 });

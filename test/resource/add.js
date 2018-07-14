@@ -28,7 +28,7 @@ describe('# add(root, id, resource)', () => {
         const res = next.resources[1];
         const TTL = Date.now() + (60 * 1000);
 
-        assert.deepStrictEqual(res.data, fixt_obj1);
+        assert.deepEqual(res.data, fixt_obj1);
         assert.equal(res.expires, TTL, 'expires is set correctly');
         assert.strictEqual(res.state, OK);
     });
@@ -37,7 +37,7 @@ describe('# add(root, id, resource)', () => {
         const next = add(fixt_state, 1, fixt_obj1, { expires: 12 });
         const res = next.resources[1];
 
-        assert.deepStrictEqual(res.data, fixt_obj1);
+        assert.deepEqual(res.data, fixt_obj1);
         assert.equal(res.expires, 12, 'expires is set correctly');
         assert.strictEqual(res.state, OK);
     });
@@ -48,7 +48,7 @@ describe('# add(root, id, resource)', () => {
         const next = add(fixt_state, 1, fixt_obj1, { ttl: 12 });
         const res = next.resources[1];
 
-        assert.deepStrictEqual(res.data, fixt_obj1);
+        assert.deepEqual(res.data, fixt_obj1);
         assert.equal(res.expires, 1012, 'expires is set correctly');
         assert.strictEqual(res.state, OK);
     });
@@ -60,7 +60,7 @@ describe('# add(root, id, resource)', () => {
         const res = next.resources[1];
         const TTL = Date.now() + (60 * 1000);
 
-        assert.deepStrictEqual(res.data, fixt_obj1);
+        assert.deepEqual(res.data, fixt_obj1);
         assert.equal(res.expires, TTL, 'expires is set correctly');
         assert.strictEqual(res.state, OK);
     });

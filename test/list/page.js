@@ -71,7 +71,7 @@ describe('# page(root, list, page, opts)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 0, 'result has correct length');
 
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, []);
     });
 
     it('Should return a partial page', () => {
@@ -92,7 +92,7 @@ describe('# page(root, list, page, opts)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 10, 'result has correct length');
 
-        assert.deepStrictEqual(result, [
+        assert.deepEqual(result, [
             { id: 1 },
             { id: 2 },
             { id: 3 },
@@ -106,7 +106,7 @@ describe('# page(root, list, page, opts)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 5, 'result has correct length');
 
-        assert.deepStrictEqual(result, [
+        assert.deepEqual(result, [
             { id: 1 },
             { id: 2 },
             { id: 3 },
@@ -121,6 +121,6 @@ describe('# page(root, list, page, opts)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 0, 'result has correct length');
 
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, []);
     });
 });
