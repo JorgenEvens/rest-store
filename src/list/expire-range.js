@@ -1,25 +1,12 @@
-import u from 'updeep';
+import _applyRange from './_apply-range';
+import _expire from './_expire';
+
+import _expires from '../status/_expires';
 
 export default
-function expireRange(root, listName, start, end) {
-    const expires = Date.now() - 1;
+function expireRange(root, listName, start, end, opts = {}) {
+    const expires = _expires({ ...opts, ttl: -1 });
+    const update = entry => _expire(entry, expires);
 
-    const entries = (ids = []) => {
-        ids = ids.slice();
-        end = Math.min(ids.length - 1, end);
-
-        for (let i = start; i <= end; i++) {
-            const entry = ids[i];
-
-            ids[i] = entry && { ...entry, expires };
-        }
-
-        return ids;
-    };
-
-    return u({
-        list: {
-            [listName]: { entries }
-        }
-    }, root || {});
+    return _applyRange(root, listName, start, end, update);
 }
