@@ -91,4 +91,16 @@ describe('# expireRange()', () => {
         ]);
     });
 
+    it('Should set defaults on empty lists', () => {
+        const state = expireRange({ list: {} }, 'all', 5, 14);
+
+        assert.equal(state.list.all.entries.length, 0);
+    });
+
+    it('Should set defaults on empty state', () => {
+        const state = expireRange(null, 'all', 5, 14);
+
+        assert.equal(state.list.all.entries.length, 0);
+    });
+
 });

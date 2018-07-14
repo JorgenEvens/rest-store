@@ -43,4 +43,24 @@ describe('# addRange()', () => {
         });
     });
 
+    it('Should set defaults on empty lists', () => {
+        const state = addRange({ list: {} }, 'all', 5, 14, []);
+
+        assert.equal(state.list.all.entries.length, 15);
+
+        state.list.all.entries.forEach(entry => {
+            assert.equal(entry, null);
+        });
+    });
+
+    it('Should set defaults on empty state', () => {
+        const state = addRange(null, 'all', 5, 14, []);
+
+        assert.equal(state.list.all.entries.length, 15);
+
+        state.list.all.entries.forEach(entry => {
+            assert.equal(entry, null);
+        });
+    });
+
 });
