@@ -19,7 +19,7 @@ describe('# loading(root, id)', () => {
         const next = loading(fixt_state, 1);
         const res = next.resources[1];
 
-        assert.deepStrictEqual(res.data, fixt_obj1);
+        assert.deepEqual(res.data, fixt_obj1);
         assert.strictEqual(res.state, LOADING);
     });
 

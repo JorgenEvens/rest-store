@@ -5,6 +5,10 @@ export attach from './attach';
 export isOK from './status/is-ok';
 export isError from './status/is-error';
 export isLoading from './status/is-loading';
+export isExpired from './status/is-expired';
+export isMissing from './status/is-missing';
+
+export shouldFetch from './status/should-fetch';
 
 // Retrieval
 export resource from './resource';
