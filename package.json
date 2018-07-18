@@ -1,7 +1,7 @@
 {
-  "name": "vuex-rest",
+  "name": "@jorgenevens/rest-store",
   "version": "0.1.0",
-  "description": "Represent REST resources in Vuex",
+  "description": "Represent REST resources in stores such as Redux or Vuex",
   "main": "src/index.js",
   "scripts": {
     "test": "npm -s run test:lint && npm -s run test:unit",
