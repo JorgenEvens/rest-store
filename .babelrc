@@ -2,13 +2,15 @@
     "presets": [
         [ "env", {
             "targets": {
-                "node": "current"
+                "node": "current",
+                "browser": [ 'last 2 versions', 'not ie 11' ]
             }
         }]
     ],
     "plugins": [
         "syntax-export-extensions",
-        "syntax-class-properties"
+        "syntax-class-properties",
+        "syntax-object-rest-spread"
     ],
     "env": {
         "test": {

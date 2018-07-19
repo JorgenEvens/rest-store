@@ -2,12 +2,14 @@
   "name": "@jorgenevens/rest-store",
   "version": "0.1.0",
   "description": "Represent REST resources in stores such as Redux or Vuex",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "npm -s run test:lint && npm -s run test:unit",
     "test:lint": "eslint src",
     "test:unit": "NODE_ENV=test nyc mocha",
-    "dev": "nodemon --delay 1 --exec 'npm test'"
+    "dev": "nodemon --delay 1 --exec 'npm test'",
+    "build": "babel -d lib src",
+    "prepare": "npm -s run test && npm -s run build"
   },
   "keywords": [
     "vuex",
@@ -19,6 +21,7 @@
   "author": "Jorgen Evens <jorgen@evens.eu>",
   "license": "UNLICENSED",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-plugin-istanbul": "^4.1.6",
     "babel-plugin-syntax-class-properties": "^6.13.0",
@@ -32,6 +35,7 @@
     "sinon": "^6.1.3"
   },
   "dependencies": {
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "updeep": "^1.0.0"
   }
 }
