@@ -9,9 +9,9 @@ export isExpired from './status/is-expired';
 export isMissing from './status/is-missing';
 
 // Should fetch
-export shouldFetch from './status/should-fetch';
-export shouldFetchPage from './status/should-fetch-page';
-export shouldFetchRange from './status/should-fetch-range';
+export shouldFetch from './resource/should-fetch';
+export shouldFetchPage from './list/should-fetch-page';
+export shouldFetchRange from './list/should-fetch-range';
 
 // Retrieval
 export resource from './resource';
