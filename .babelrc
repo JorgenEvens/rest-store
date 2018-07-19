@@ -8,9 +8,9 @@
         }]
     ],
     "plugins": [
-        "syntax-export-extensions",
-        "syntax-class-properties",
-        "syntax-object-rest-spread"
+        "transform-export-extensions",
+        "transform-class-properties",
+        "transform-object-rest-spread"
     ],
     "env": {
         "test": {
