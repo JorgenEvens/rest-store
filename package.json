@@ -1,6 +1,6 @@
 {
   "name": "@jorgenevens/rest-store",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Represent REST resources in stores such as Redux or Vuex",
   "main": "lib/index.js",
   "scripts": {
