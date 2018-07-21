@@ -16,7 +16,7 @@ function addRange(root, listName, start, end, data, opts = {}) {
     data = _expand(data, len);
 
     const entries = (ids = []) => {
-        ids = _expand(ids, end);
+        ids = _expand(ids, end + 1);
 
         return ids.slice(0, start)
             .concat(data)
