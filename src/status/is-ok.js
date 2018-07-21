@@ -8,7 +8,7 @@ function isOK(resource) {
         return true;
 
     const entry = _getEntry(resource);
-    if (isState(resource, LOADING) && entry.data)
+    if (isState(resource, LOADING) && entry && entry.data)
         return true;
 
     return false;

@@ -47,4 +47,11 @@ describe('# is-ok', () => {
         assert(!isOk(res), 'resource is not OK');
     });
 
+    it('Should read status when entry is missing', () => {
+        const state = loading(null, 2);
+        const res = get(state, 2);
+
+        assert(!isOk(res), 'resource is not OK');
+    });
+
 });
