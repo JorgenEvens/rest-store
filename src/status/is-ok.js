@@ -1,14 +1,20 @@
 import { OK, LOADING } from '../constants';
 import isState from './is-state';
-import _getEntry from './_get-entry';
+
+const stateOK = (e, r = true) => r && isState(e, OK);
+const stateLOADING = (e, r = false) => {
+    if (isState(e, LOADING) && e && (e.data || e.id))
+        return true;
+
+    return r;
+};
 
 export default
 function isOK(resource) {
-    if (isState(resource, OK))
+    if (isState(resource, stateOK))
         return true;
 
-    const entry = _getEntry(resource);
-    if (isState(resource, LOADING) && entry && entry.data)
+    if (isState(resource, stateLOADING))
         return true;
 
     return false;

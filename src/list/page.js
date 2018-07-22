@@ -1,7 +1,6 @@
-import ids from './ids';
+import range from './range';
 import _page from './_page';
 import pageCount from './page-count';
-import resources from '../resource/list';
 
 export default
 function page(root, listName, page, opts = {}) {
@@ -17,6 +16,5 @@ function page(root, listName, page, opts = {}) {
     const list = root.list[listName];
     const { start, end } = _page(list, page, opts);
 
-    const entries = ids(root, listName, start, end);
-    return resources(root, entries);
+    return range(root, listName, start, end);
 }

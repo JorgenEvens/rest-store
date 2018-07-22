@@ -27,4 +27,18 @@ describe('# is-state', () => {
         assert(isState(fixt_resource, OK));
     });
 
+    it('Should read state from entry array', () => {
+        const fixt_list = [
+            { id: 1 },
+            { id: 2 }
+        ];
+
+        fixt_list[ENTRY] = [
+            { state: OK },
+            { state: OK }
+        ];
+
+        assert(isState(fixt_list, OK));
+    });
+
 });
