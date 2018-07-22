@@ -7,6 +7,7 @@ describe('# pageCount(root, list, opts)', () => {
     const fixt_state = {
         list: {
             all: {
+                total: 13,
                 pageSize: 10,
                 entries: [
                     { id: '1' },
@@ -50,9 +51,9 @@ describe('# pageCount(root, list, opts)', () => {
         assert.strictEqual(result, 20);
     });
 
-    it('Should return 0 for missing list', () => {
+    it('Should return infinity for missing list', () => {
         const result = pageCount(fixt_state, 'does-not-exist');
 
-        assert.strictEqual(result, 0);
+        assert.strictEqual(result, Infinity);
     });
 });

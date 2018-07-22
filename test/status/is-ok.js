@@ -78,4 +78,8 @@ describe('# is-ok', () => {
         assert(!isOk(res), 'list is not OK');
     });
 
+    it('Should read not-OK state from missing entry', () => {
+        assert(!isOk(null), 'resource is not OK');
+    });
+
 });

@@ -22,6 +22,7 @@ describe('# page(root, list, page, opts)', () => {
         },
         list: {
             all: {
+                total: 13,
                 pageSize: 10,
                 entries: [
                     { id: '1' },

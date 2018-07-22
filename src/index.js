@@ -21,6 +21,7 @@ export page from './list/page';
 export pageCount from './list/page-count';
 export range from './list/range';
 export ids from './list/ids';
+export options from './list/options';
 
 // Add / Update
 export add from './resource/add';

@@ -3,7 +3,7 @@ import isOK from '../status/is-ok';
 import _entries from './_entries';
 
 export default
-function shouldFetchPage(root, listName, start, end) {
+function shouldFetchRange(root, listName, start, end) {
     const entries = _entries(root, listName, start, end);
 
     return entries.reduce((r, entry) => {

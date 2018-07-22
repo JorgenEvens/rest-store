@@ -22,6 +22,7 @@ describe('# range(root, list, start, end)', () => {
         },
         list: {
             all: {
+                total: 13,
                 entries: [
                     { id: '1' },
                     { id: '2' },
@@ -91,10 +92,16 @@ describe('# range(root, list, start, end)', () => {
         let result;
 
         result = range(fixt_state, 'does-not-exist', 10, 19);
-        assert.deepEqual(result, []);
+        assert.deepEqual(result, [
+            null, null, null, null, null,
+            null, null, null, null, null
+        ]);
 
         result = range(fixt_state, 'entryless', 10, 19);
-        assert.deepEqual(result, []);
+        assert.deepEqual(result, [
+            null, null, null, null, null,
+            null, null, null, null, null
+        ]);
 
         result = range(fixt_state, 'total', 100, 109);
         assert.deepEqual(result, []);

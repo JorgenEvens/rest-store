@@ -7,6 +7,7 @@ describe('# ids(root, list, start, end)', () => {
     const fixt_state = {
         list: {
             all: {
+                total: 13,
                 entries: [
                     { id: '1' },
                     { id: '2' },
@@ -43,7 +44,7 @@ describe('# ids(root, list, start, end)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 10, 'result has correct length');
 
-        assert.deepStrictEqual(result, [
+        assert.deepEqual(result, [
             '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
         ]);
     });
@@ -54,7 +55,7 @@ describe('# ids(root, list, start, end)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 3, 'result has correct length');
 
-        assert.deepStrictEqual(result, [ '11', '12', '13' ]);
+        assert.deepEqual(result, [ '11', '12', '13' ]);
     });
 
     it('Should fill out ids for parts that have not been fetched', () => {
@@ -63,7 +64,7 @@ describe('# ids(root, list, start, end)', () => {
         assert(Array.isArray(result), 'is an array');
         assert.equal(result.length, 10, 'result has correct length');
 
-        assert.deepStrictEqual(result, [
+        assert.deepEqual(result, [
             '1', '2', '3', null, null, null, null, null, null, null
         ]);
     });
@@ -72,12 +73,18 @@ describe('# ids(root, list, start, end)', () => {
         let result;
 
         result = ids(fixt_state, 'does-not-exist', 10, 19);
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, [
+            null, null, null, null, null,
+            null, null, null, null, null
+        ], 'does not exist');
 
         result = ids(fixt_state, 'entryless', 10, 19);
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, [
+            null, null, null, null, null,
+            null, null, null, null, null
+        ], 'entryless');
 
         result = ids(fixt_state, 'total', 100, 109);
-        assert.deepStrictEqual(result, []);
+        assert.deepEqual(result, [], 'total');
     });
 });
