@@ -1,14 +1,18 @@
 import _entries from './_entries';
-import resources from '../resource/list';
+import resource from '../resource';
 
 import { ENTRY } from '../constants';
+import isError from '../status/is-error';
 
 export default
 function range(root, listName, start, end) {
     const entries = _entries(root, listName, start, end);
-    const ids = entries.map(entry => entry && entry.id);
+    const result = entries.map(entry => {
+        if (entry && isError(entry))
+            return entry.error;
 
-    const result = resources(root, ids);
+        return resource(root, entry && entry.id);
+    });
 
     result[ENTRY] = entries;
 

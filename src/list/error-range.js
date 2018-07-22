@@ -1,10 +1,10 @@
 import _expandList from './_expand-list';
 import _applyRange from './_apply-range';
-import { LOADING } from '../constants';
+import { ERROR } from '../constants';
 
 export default
-function loadingRange(root, listName, start, end) {
-    const update = entry => ({ ...entry, state: LOADING });
+function errorRange(root, listName, start, end, error) {
+    const update = entry => ({ ...entry, state: ERROR, error });
 
     root = _expandList(root, listName, end);
 

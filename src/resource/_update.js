@@ -12,5 +12,8 @@ function _update(entry, updates) {
         [ENTRY]: entry
     };
 
+    if (entry.error)
+        entry.error[ENTRY] = entry;
+
     return entry;
 }

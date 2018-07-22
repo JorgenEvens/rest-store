@@ -10,4 +10,3 @@ function expand(arr, modulo, filler = null) {
 
     return arr.concat(filling);
 }
-
