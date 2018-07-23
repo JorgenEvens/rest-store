@@ -23,8 +23,3 @@ test:
   stage: test
   script:
    - npm -s run test:unit
-
-audit:
-  stage: test
-  script:
-   - npm audit
