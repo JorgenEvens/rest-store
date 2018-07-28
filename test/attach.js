@@ -10,7 +10,9 @@ describe('# attach(root)', () => {
         assert.deepStrictEqual(next, {
             resources: {},
             list: {
-                all: []
+                all: {
+                    entries: []
+                }
             }
         });
     });
@@ -24,7 +26,9 @@ describe('# attach(root)', () => {
             some: 'state',
             resources: {},
             list: {
-                all: []
+                all: {
+                    entries: []
+                }
             }
         });
     });
@@ -47,7 +51,9 @@ describe('# attach(root)', () => {
                 }
             },
             list: {
-                all: []
+                all: {
+                    entries: []
+                }
             }
         });
     });

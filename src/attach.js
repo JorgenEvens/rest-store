@@ -5,7 +5,9 @@ function attach(state) {
     return u({
         resources: {},
         list: {
-            all: []
+            all: {
+                entries: []
+            }
         }
     }, state);
 }
