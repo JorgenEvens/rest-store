@@ -62,4 +62,29 @@ describe('Vuex.getResource(selector, options)', () => {
         assert(!dispatch.called, 'dispatch not called');
     });
 
+    it('Should support parameters', () => {
+        const dispatch = sinon.spy().withArgs('fetch', { id: 2, a: 'test' });
+        const cmp = {
+            $store: { state: {}, dispatch }
+        };
+
+        const computed = getResource(() => 2, { params: { a: 'test' } });
+        computed.call(cmp);
+
+        assert(dispatch.called, 'dispatch called');
+    });
+
+    it('Should support parameter callback', () => {
+        const dispatch = sinon.spy().withArgs('fetch', { id: 2, a: 'test' });
+        const cmp = {
+            $store: { state: {}, dispatch },
+            propA: 'test'
+        };
+
+        const computed = getResource(() => 2, { params: () => ({ a: cmp.propA }) });
+        computed.call(cmp);
+
+        assert(dispatch.called, 'dispatch called');
+    });
+
 });
