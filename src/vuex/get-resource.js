@@ -14,10 +14,13 @@ export default
 function getResource(selector, options) {
     options = { ...resourceDefaults, ...options };
 
-    const { storeName } = options;
+    const { storeName, params } = options;
 
     const getId = typeof selector === 'function' ?
         selector : (cmp) => _get(cmp, selector);
+
+    const getParams = typeof params === 'function' ?
+        params : () => params || {};
 
     const { namespace } = options;
     let { fetch } = options;
@@ -27,12 +30,13 @@ function getResource(selector, options) {
 
     return function() {
         const { state, dispatch } = _get(this, storeName);
+        const opts = getParams(this);
         const id =  getId(this);
 
         const root = getRoot(state, namespace);
 
         if (shouldFetch(root, id))
-            dispatch(fetch, { id });
+            dispatch(fetch, { id, ...opts });
 
         return resource(root, id);
     };
