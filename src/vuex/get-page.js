@@ -3,6 +3,7 @@ import _get from 'lodash/get';
 import shouldFetchPage from '../list/should-fetch-page';
 import fetchPage from '../list/page';
 import getRoot from './get-root';
+import _compact from './_compact';
 
 const pageDefaults = {
     namespace: null,
@@ -44,7 +45,7 @@ function getPage(pageSelector, listName, options = {}) {
         if (shouldFetchPage(root, listName, page, opts))
             dispatch(fetch, { listName, page, ...opts });
 
-        return fetchPage(root, listName, page, opts)
-            .filter(v => !!v);
+        const entries = fetchPage(root, listName, page, opts);
+        return _compact(entries);
     };
 }

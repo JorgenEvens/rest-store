@@ -3,6 +3,7 @@ import _get from 'lodash/get';
 import shouldFetchRange from '../list/should-fetch-range';
 import fetchRange from '../list/range';
 import getRoot from './get-root';
+import _compact from './_compact';
 
 const rangeDefaults = {
     namespace: null,
@@ -41,7 +42,7 @@ function getRange(rangeSelector, listName, options = {}) {
         if (shouldFetchRange(root, listName, start, end))
             dispatch(fetch, { listName, start, end, ...opts });
 
-        return fetchRange(root, listName, start, end, opts)
-            .filter(v => !!v);
+        const entries = fetchRange(root, listName, start, end, opts);
+        return _compact(entries);
     };
 }
