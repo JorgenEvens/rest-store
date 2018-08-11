@@ -1,6 +1,8 @@
 import _mapValues from 'lodash/mapValues';
 import _debounce from 'lodash/debounce';
 
+import hash from 'hash-it';
+
 function __debounce(func, timeout, opts) {
     const cache = {};
 
@@ -14,12 +16,25 @@ function __debounce(func, timeout, opts) {
     };
 }
 
+function wrapMethod(method) {
+    return __debounce(method, 500, {
+        leading: true,
+        id: (ctx, ...args) => hash(args)
+    });
+}
+
 export default
 function throttleAll(methods) {
     return _mapValues(methods, method => {
-        return __debounce(method, 500, {
-            leading: true,
-            id: (ctx, ...args) => JSON.stringify(...args)
-        });
+        if (typeof method === 'function')
+            return wrapMethod(method);
+
+        if (typeof method !== 'object' || typeof method.handler !== 'function')
+            return method;
+
+        return {
+            ...method,
+            handler: wrapMethod(method.handler)
+        };
     });
 }
