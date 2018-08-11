@@ -35,6 +35,7 @@ export removeRange from './list/remove-range';
 
 // Expiry
 export expire from './resource/expire';
+export expireAll from './list/expire-all';
 export expirePage from './list/expire-page';
 export expireRange from './list/expire-range';
 
