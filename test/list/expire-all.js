@@ -3,7 +3,7 @@ import sinon from 'sinon';
 
 import expireAll from '../../src/list/expire-all';
 
-describe.only('# expireAll()', () => {
+describe('# expireAll()', () => {
 
     let sandbox;
 
