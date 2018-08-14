@@ -31,19 +31,24 @@ function getPage(pageSelector, listName, options = {}) {
     if (namespace && typeof fetch === 'string')
         fetch = `${namespace}/${fetch}`;
 
+    const hashes = {};
+
     return function() {
         const opts = getParams(this);
         const page =  getPage(this, opts) || 1;
         const listName = getListName(this, opts);
         const { state, dispatch } = _get(this, storeName);
+        const hash = JSON.stringify(opts);
 
         if (page < 1)
             throw new Error('page must be greater than 0');
 
         const root = getRoot(state, namespace);
 
-        if (shouldFetchPage(root, listName, page, opts))
+        if (hash !== hashes[listName] || shouldFetchPage(root, listName, page, opts))
             dispatch(fetch, { listName, page, ...opts });
+
+        hashes[listName] = hash;
 
         const entries = fetchPage(root, listName, page, opts);
         return _compact(entries);
