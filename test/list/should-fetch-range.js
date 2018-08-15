@@ -3,6 +3,7 @@ import assert from 'assert';
 import add from '../../src/resource/add';
 import options from '../../src/list/options';
 import addRange from '../../src/list/add-range';
+import loadingRange from '../../src/list/loading-range';
 import addPage from '../../src/list/add-page';
 
 import shouldFetchRange from '../../src/list/should-fetch-range';
@@ -45,5 +46,13 @@ describe('# shouldFetchRange(root, list, start, end)', () => {
 
         const fetch = shouldFetchRange(state, 'all', 0, 3);
         assert.equal(fetch, true);
+    });
+
+    it('Should not refresh items in loading state', () => {
+        let state = loadingRange({}, 'all', 0, 3);
+
+        const fetch = shouldFetchRange(state, 'all', 0, 3);
+
+        assert.equal(fetch, false);
     });
 });
