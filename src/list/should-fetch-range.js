@@ -1,5 +1,6 @@
 import isExpired from '../status/is-expired';
 import isOK from '../status/is-ok';
+import isLoading from '../status/is-loading';
 import _entries from './_entries';
 import _list from './_list';
 import _total from './_total';
@@ -15,7 +16,10 @@ function shouldFetchRange(root, listName, start, end) {
     const entries = _entries(root, listName, start, end);
 
     return entries.reduce((r, entry) => {
-        const hasId = entry && entry.id !== null && typeof entry.id !== 'undefined';
-        return r || !hasId || isExpired(entry) || !isOK(entry);
+
+        // If entry is in a valid state don't refresh it
+        const isValid = isOK(entry) || isLoading(entry);
+
+        return r || !isValid || isExpired(entry);
     }, false);
 }
