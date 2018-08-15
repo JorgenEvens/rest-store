@@ -5,6 +5,14 @@ import { attach, addRange, add } from '../../src';
 
 import getRange from '../../src/vuex/get-range';
 
+function makeStore(custom = {}) {
+    return {
+        registerModule() {},
+        commit() {},
+        ...custom
+    };
+}
+
 describe('Vuex.getRange(selector, listName, options)', () => {
 
     it('Should get a range for a computed property', () => {
@@ -14,7 +22,7 @@ describe('Vuex.getRange(selector, listName, options)', () => {
             state = add(state, i, { id: i });
 
         const dispatch = sinon.spy();
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getRange(
             () => ({ start: 0, end: 4 }),
@@ -34,7 +42,7 @@ describe('Vuex.getRange(selector, listName, options)', () => {
             state = add(state, i, { id: i });
 
         const dispatch = sinon.spy();
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getRange(
             () => ({ start: 0, end: 4 }),
@@ -56,7 +64,7 @@ describe('Vuex.getRange(selector, listName, options)', () => {
             end: 9
         });
 
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getRange(
             () => ({ start: 0, end: 9 }),
@@ -78,7 +86,7 @@ describe('Vuex.getRange(selector, listName, options)', () => {
             end: 9
         });
 
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getRange(
             () => null,
@@ -100,7 +108,7 @@ describe('Vuex.getRange(selector, listName, options)', () => {
             end: 9
         });
 
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getRange(
             () => null,
@@ -126,7 +134,7 @@ describe('Vuex.getRange(selector, listName, options)', () => {
 
         const cmp = {
             range: { start: 2, end: 5 },
-            $store: { state, dispatch }
+            $store: makeStore({ state, dispatch })
         };
 
         const computed = getRange(

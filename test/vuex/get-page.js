@@ -5,6 +5,14 @@ import { attach, addRange, add } from '../../src';
 
 import getPage from '../../src/vuex/get-page';
 
+function makeStore(custom = {}) {
+    return {
+        registerModule() {},
+        commit() {},
+        ...custom
+    };
+}
+
 describe('Vuex.getPage(selector, listName, options)', () => {
 
     it('Should get a page for a computed property', () => {
@@ -14,7 +22,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
             state = add(state, i, { id: i });
 
         const dispatch = sinon.spy();
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getPage(
             () => 1,
@@ -35,7 +43,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
             state = add(state, i, { id: i });
 
         const dispatch = sinon.spy();
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getPage(
             () => 1,
@@ -57,7 +65,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
             page: 1
         });
 
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getPage(
             () => 1,
@@ -78,7 +86,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
             page: 1
         });
 
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getPage(
             () => null,
@@ -99,7 +107,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
             page: 1
         });
 
-        const cmp = { $store: { state, dispatch } };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getPage(
             () => null,
@@ -124,7 +132,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
 
         const cmp = {
             page: 4,
-            $store: { state, dispatch }
+            $store: makeStore({ state, dispatch })
         };
 
         const computed = getPage(
@@ -147,7 +155,7 @@ describe('Vuex.getPage(selector, listName, options)', () => {
                 state = add(state, i, { id: i });
 
             const dispatch = sinon.spy();
-            const cmp = { $store: { state, dispatch } };
+            const cmp = { $store: makeStore({ state, dispatch }) };
 
             const computed = getPage(
                 () => -1,
