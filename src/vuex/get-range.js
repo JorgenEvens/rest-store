@@ -4,6 +4,8 @@ import shouldFetchRange from '../list/should-fetch-range';
 import fetchRange from '../list/range';
 import getRoot from './get-root';
 import _compact from './_compact';
+import _selectors from './_selectors';
+import { updateListHash } from './_state-helper';
 
 const rangeDefaults = {
     namespace: null,
@@ -16,17 +18,15 @@ export default
 function getRange(rangeSelector, listName, options = {}) {
     options = { ...rangeDefaults, ...options };
 
-    const { namespace, params, storeName } = options;
+    const { namespace, storeName } = options;
     let { fetch } = options;
 
-    const getRange = typeof rangeSelector === 'function' ?
-        rangeSelector : (cmp) => _get(cmp, rangeSelector);
-
-    const getListName = typeof listName === 'function' ?
-        listName : () => listName;
-
-    const getParams = typeof params === 'function' ?
-        params : () => params || {};
+    const {
+        getSelection,
+        getListName,
+        getParams,
+        getHash
+    } = _selectors(rangeSelector, { ...options, listName });
 
     if (namespace && typeof fetch === 'string')
         fetch = `${namespace}/${fetch}`;
@@ -34,11 +34,16 @@ function getRange(rangeSelector, listName, options = {}) {
     return function() {
         const opts = getParams(this);
         const listName = getListName(this, opts);
-        const { state, dispatch } = _get(this, storeName);
-        const { start = 0, end = 9 } =  getRange(this, opts) || {};
+        const { start = 0, end = 9 } = getSelection(this, opts) || {};
+
+        const store = _get(this, storeName);
+        const { state, dispatch } = store;
+        const hash = getHash(opts);
+
+
+        updateListHash(store, namespace, listName, hash);
 
         const root = getRoot(state, namespace);
-
         if (shouldFetchRange(root, listName, start, end))
             dispatch(fetch, { listName, start, end, ...opts });
 
