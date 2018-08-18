@@ -1,3 +1,5 @@
+import u from 'updeep';
+
 import _applyRange from './_apply-range';
 import _expire from './_expire';
 import options from './options';
@@ -17,5 +19,5 @@ function expireRange(root, listName, start, end, opts = {}) {
     if (list.total > 0)
         return root;
 
-    return options(root, listName, { total: null });
+    return options(root, listName, u.omit('total'));
 }

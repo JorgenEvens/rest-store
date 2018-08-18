@@ -103,4 +103,19 @@ describe('# expireRange()', () => {
         assert.equal(state.list.all.entries.length, 0);
     });
 
+    it('Should remove total if set', () => {
+        const root = {
+            list: {
+                all: {
+                    entries: [],
+                    total: 0
+                }
+            }
+        };
+        const state = expireRange(root, 'all', 0, 5);
+
+        assert.equal(state.list.all.entries.length, 0);
+        assert.equal(typeof state.list.all.total, 'undefined');
+    });
+
 });
