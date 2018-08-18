@@ -19,7 +19,7 @@
     "resources"
   ],
   "author": "Jorgen Evens <jorgen@evens.eu>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
@@ -39,5 +39,17 @@
   "dependencies": {
     "hash-it": "^4.0.1",
     "updeep": "^1.0.0"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JorgenEvens/rest-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JorgenEvens/rest-store/issues"
+  },
+  "homepage": "https://github.com/JorgenEvens/rest-store#readme"
 }
