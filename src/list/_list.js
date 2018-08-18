@@ -3,5 +3,12 @@ function _list(root, listName) {
     if (!root || !root.list || !root.list[listName])
         return { entries: [] };
 
-    return root.list[listName];
+    const list = root.list[listName];
+    if (Array.isArray(list.entries))
+        return list;
+
+    return {
+        entries: [],
+        ...list
+    };
 }
