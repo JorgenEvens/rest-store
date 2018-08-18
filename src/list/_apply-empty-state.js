@@ -15,5 +15,5 @@ function _applyEmptyState(root, listName, options) {
         list: {
             [listName]: options
         }
-    }, root || {});
+    }, root);
 }
