@@ -4,6 +4,7 @@ import add from '../../src/resource/add';
 import options from '../../src/list/options';
 import addRange from '../../src/list/add-range';
 import loadingRange from '../../src/list/loading-range';
+import expireAll from '../../src/list/expire-all';
 import addPage from '../../src/list/add-page';
 
 import shouldFetchRange from '../../src/list/should-fetch-range';
@@ -54,5 +55,37 @@ describe('# shouldFetchRange(root, list, start, end)', () => {
         const fetch = shouldFetchRange(state, 'all', 0, 3);
 
         assert.equal(fetch, false);
+    });
+
+    it('Should detect empty list is ok', () => {
+        const root = {
+            list: {
+                all: {
+                    total: 0,
+                    entries: []
+                }
+            }
+        };
+
+        const fetch = shouldFetchRange(root, 'all', 0, 3);
+
+        assert.equal(fetch, false);
+    });
+
+    it('Should detect empty list has expired', () => {
+        const root = {
+            list: {
+                all: {
+                    total: 0,
+                    entries: []
+                }
+            }
+        };
+
+        let state = expireAll(root, 'all');
+
+        const fetch = shouldFetchRange(state, 'all', 0, 3);
+
+        assert.equal(fetch, true);
     });
 });

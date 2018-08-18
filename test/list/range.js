@@ -1,5 +1,6 @@
 import assert from 'assert';
 
+import { ENTRY } from '../../src/constants';
 import range from '../../src/list/range';
 
 describe('# range(root, list, start, end)', () => {
@@ -46,6 +47,10 @@ describe('# range(root, list, start, end)', () => {
                     { id: '2' },
                     { id: '3' }
                 ]
+            },
+            totalZero: {
+                total: 0,
+                entries: []
             },
             entryless: {
                 total: 50
@@ -105,5 +110,14 @@ describe('# range(root, list, start, end)', () => {
 
         result = range(fixt_state, 'total', 100, 109);
         assert.deepEqual(result, []);
+    });
+
+    it('Should set valid ENTRY for lists with total=0', () => {
+        const result = range(fixt_state, 'totalZero', 10, 19);
+        assert.equal(result.length, 0);
+        assert(result[ENTRY]);
+
+        assert(Array.isArray(result[ENTRY].entries), 'entries is an array');
+        assert.equal(result[ENTRY].total, 0);
     });
 });

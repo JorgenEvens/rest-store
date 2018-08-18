@@ -5,7 +5,10 @@ function isFilledEntry(e) {
     const hasId = e.id !== null && typeof e.id !== 'undefined';
     const hasData = e.id !== null && typeof e.data !== 'undefined';
 
-    return hasId || hasData;
+    // dangerous, might need to add types as object metadata later
+    const isList = Array.isArray(e.entries) && typeof e.state === 'symbol';
+
+    return hasId || hasData || isList;
 }
 
 const stateOK = (e, r = true) => r && isState(e, OK) && isFilledEntry(e);

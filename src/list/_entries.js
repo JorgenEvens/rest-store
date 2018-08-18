@@ -5,7 +5,7 @@ import _expand from './_expand';
 export default
 function _entries(root, listName, start, end) {
     const list = _list(root, listName);
-    const entries = list.entries || [];
+    const entries = list.entries;
     const total = _total(list);
 
     start = Math.max(start, 0);
