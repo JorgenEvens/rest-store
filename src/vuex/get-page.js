@@ -1,4 +1,5 @@
 import _get from 'lodash/get';
+import _omit from 'lodash/omit';
 
 import shouldFetchPage from '../list/should-fetch-page';
 import fetchPage from '../list/page';
@@ -7,6 +8,13 @@ import { updateListHash } from './_state-helper';
 import _selectors from './_selectors';
 import _compact from './_compact';
 import getRoot from './get-root';
+
+// These arguments should not influence the contents
+// of the retrieved list, so we blacklist them when hashing
+const HASH_IGNORE = [
+    'pageSize',
+    'page'
+];
 
 const pageDefaults = {
     namespace: null,
@@ -38,7 +46,7 @@ function getPage(pageSelector, listName, options = {}) {
         const listName = getListName(this, opts);
         const store = _get(this, storeName);
         const { state, dispatch } = store;
-        const hash = getHash(opts);
+        const hash = getHash(_omit(opts, HASH_IGNORE));
 
         if (page < 1)
             throw new Error('page must be greater than 0');
