@@ -171,4 +171,29 @@ describe('Vuex.getPage(selector, listName, options)', () => {
         });
     });
 
+    it('Should ignore blacklisted params when hashing', () => {
+        let state = attach();
+        state = addRange(state, 'all', 0, 4, [ 1, 2, 3, 4, 5 ]);
+        for (let i = 1; i <= 5; i++)
+            state = add(state, i, { id: i });
+
+        const dispatch = sinon.spy();
+        const cmp = { $store: makeStore({ state, dispatch }) };
+
+        const computed = getPage(
+            () => 1,
+            'all',
+            {
+                params: { pageSize: 5, otherParam: true },
+                hasher: (opts) => {
+                    assert.equal(typeof opts.pageSize, 'undefined');
+                    assert.strictEqual(opts.otherParam, true);
+                    return 'abc';
+                }
+            }
+        );
+
+        computed.call(cmp);
+    });
+
 });
