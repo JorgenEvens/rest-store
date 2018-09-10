@@ -1,6 +1,10 @@
 import assert from 'assert';
 
+import attach from '../../src/attach';
+import { OK } from '../../src/constants';
+import options from '../../src/list/options';
 import addPage from '../../src/list/add-page';
+import loadingPage from '../../src/list/loading-page';
 
 describe('# addPage()', () => {
 
@@ -47,6 +51,16 @@ describe('# addPage()', () => {
             else
                 assert.equal(entry, null);
         });
+    });
+
+    it('Should update list state correctly', () => {
+        let state = attach();
+        state = options(state, 'all', { total: 0 });
+        state = loadingPage(state, 'all', 1);
+        state = addPage(state, 'all', 1, []);
+        state = options(state, 'all', { total: 0 });
+
+        assert.equal(state.list.all.state, OK);
     });
 
 });
