@@ -4,6 +4,10 @@ import add from '../../src/resource/add';
 import options from '../../src/list/options';
 import addRange from '../../src/list/add-range';
 
+import attach from '../../src/attach';
+import addPage from '../../src/list/add-page';
+import loadingPage from '../../src/list/loading-page';
+
 import shouldFetchPage from '../../src/list/should-fetch-page';
 
 describe('# shouldFetchPage(root, list, page, opts)', () => {
@@ -42,5 +46,18 @@ describe('# shouldFetchPage(root, list, page, opts)', () => {
         const fetch = shouldFetchPage(state, 'all', 1);
 
         assert(fetch, 'should fetch');
+    });
+
+    it('Should update list state correctly', () => {
+        let state = attach();
+        state = options(state, 'all', { total: 0 });
+        state = loadingPage(state, 'all', 1);
+        state = addPage(state, 'all', 1, []);
+        state = options(state, 'all', { total: 0 });
+
+        const fetch = shouldFetchPage(state, 'all', 1);
+
+        assert.equal(fetch, false, 'should not fetch');
+
     });
 });
