@@ -6,6 +6,7 @@ import getRoot from './get-root';
 import _compact from './_compact';
 import _selectors from './_selectors';
 import { updateListHash } from './_state-helper';
+import { wrapDispatch } from './throttled-dispatch';
 
 const rangeDefaults = {
     namespace: null,
@@ -37,13 +38,12 @@ function getRange(rangeSelector, listName, options = {}) {
         const { start = 0, end = 9 } = getSelection(this, opts) || {};
 
         const store = _get(this, storeName);
-        const { state, dispatch } = store;
         const hash = getHash(opts);
-
+        const dispatch = wrapDispatch(store.dispatch);
 
         updateListHash(store, namespace, listName, hash);
 
-        const root = getRoot(state, namespace);
+        const root = getRoot(store.state, namespace);
         if (shouldFetchRange(root, listName, start, end))
             dispatch(fetch, { listName, start, end, ...opts });
 

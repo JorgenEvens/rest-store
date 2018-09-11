@@ -4,6 +4,7 @@ import _omit from 'lodash/omit';
 import shouldFetchPage from '../list/should-fetch-page';
 import fetchPage from '../list/page';
 
+import { wrapDispatch } from './throttled-dispatch';
 import { updateListHash } from './_state-helper';
 import _selectors from './_selectors';
 import _compact from './_compact';
@@ -45,15 +46,15 @@ function getPage(pageSelector, listName, options = {}) {
         const page =  getSelection(this, opts) || 1;
         const listName = getListName(this, opts);
         const store = _get(this, storeName);
-        const { state, dispatch } = store;
         const hash = getHash(_omit(opts, HASH_IGNORE));
+        const dispatch = wrapDispatch(store.dispatch);
 
         if (page < 1)
             throw new Error('page must be greater than 0');
 
         updateListHash(store, namespace, listName, hash);
 
-        const root = getRoot(state, namespace);
+        const root = getRoot(store.state, namespace);
         if (shouldFetchPage(root, listName, page, opts))
             dispatch(fetch, { listName, page, ...opts });
 
