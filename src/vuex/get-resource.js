@@ -1,7 +1,8 @@
 import _get from 'lodash/get';
 
-import resource from '../resource';
+import { wrapDispatch } from './throttled-dispatch';
 import shouldFetch from '../resource/should-fetch';
+import resource from '../resource';
 import getRoot from './get-root';
 
 const resourceDefaults = {
@@ -29,11 +30,12 @@ function getResource(selector, options) {
         fetch = `${namespace}/${fetch}`;
 
     return function() {
-        const { state, dispatch } = _get(this, storeName);
-        const opts = getParams(this);
         const id =  getId(this);
+        const opts = getParams(this);
+        const store = _get(this, storeName);
+        const dispatch = wrapDispatch(store.dispatch);
 
-        const root = getRoot(state, namespace);
+        const root = getRoot(store.state, namespace);
 
         if (shouldFetch(root, id))
             dispatch(fetch, { id, ...opts });
