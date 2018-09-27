@@ -1,0 +1,23 @@
+{
+    "getting-started": {
+        "Getting Started": [
+            "getting-started"
+        ]
+    },
+    "docs": {
+        "Documentation": [
+            "index"
+        ],
+        "Vuex Usage": [
+            "vuex"
+        ],
+        "Redux Usage": [
+            "redux"
+        ]
+    },
+    "api": {
+        "API Reference": [
+            "api"
+        ]
+    }
+}
