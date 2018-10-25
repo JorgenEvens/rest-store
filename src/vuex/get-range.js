@@ -12,7 +12,8 @@ const rangeDefaults = {
     namespace: null,
     listName: 'all',
     fetch: 'fetchRange',
-    storeName: '$store'
+    storeName: '$store',
+    condition: () => true
 };
 
 export default
@@ -20,7 +21,7 @@ function getRange(rangeSelector, listName, options = {}) {
     options = { ...rangeDefaults, ...options };
 
     const { namespace, storeName } = options;
-    let { fetch } = options;
+    let { fetch, condition } = options;
 
     const {
         getSelection,
@@ -39,12 +40,13 @@ function getRange(rangeSelector, listName, options = {}) {
 
         const store = _get(this, storeName);
         const hash = getHash(opts);
+        const allowFetch = condition(this, opts);
         const dispatch = wrapDispatch(store.dispatch);
 
         updateListHash(store, namespace, listName, hash);
 
         const root = getRoot(store.state, namespace);
-        if (shouldFetchRange(root, listName, start, end))
+        if (allowFetch && shouldFetchRange(root, listName, start, end))
             dispatch(fetch, { listName, start, end, ...opts });
 
         const entries = fetchRange(root, listName, start, end, opts);

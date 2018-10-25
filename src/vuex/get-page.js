@@ -21,7 +21,8 @@ const pageDefaults = {
     namespace: null,
     listName: 'all',
     fetch: 'fetchPage',
-    storeName: '$store'
+    storeName: '$store',
+    condition: () => true
 };
 
 export default
@@ -29,7 +30,7 @@ function getPage(pageSelector, listName, options = {}) {
     options = { ...pageDefaults, ...options };
 
     const { namespace, storeName } = options;
-    let { fetch } = options;
+    let { fetch, condition } = options;
 
     const {
         getSelection,
@@ -46,6 +47,7 @@ function getPage(pageSelector, listName, options = {}) {
         const page =  getSelection(this, opts) || 1;
         const listName = getListName(this, opts);
         const store = _get(this, storeName);
+        const allowFetch = condition(this, opts);
         const hash = getHash(_omit(opts, HASH_IGNORE));
         const dispatch = wrapDispatch(store.dispatch);
 
@@ -55,7 +57,7 @@ function getPage(pageSelector, listName, options = {}) {
         updateListHash(store, namespace, listName, hash);
 
         const root = getRoot(store.state, namespace);
-        if (shouldFetchPage(root, listName, page, opts))
+        if (allowFetch && shouldFetchPage(root, listName, page, opts))
             dispatch(fetch, { listName, page, ...opts });
 
         const entries = fetchPage(root, listName, page, opts);

@@ -8,14 +8,15 @@ import getRoot from './get-root';
 const resourceDefaults = {
     namespace: null,
     fetch: 'fetch',
-    storeName: '$store'
+    storeName: '$store',
+    condition: () => true
 };
 
 export default
 function getResource(selector, options) {
     options = { ...resourceDefaults, ...options };
 
-    const { storeName, params } = options;
+    const { storeName, params, condition } = options;
 
     const getId = typeof selector === 'function' ?
         selector : (cmp) => _get(cmp, selector);
@@ -32,12 +33,13 @@ function getResource(selector, options) {
     return function() {
         const id =  getId(this);
         const opts = getParams(this);
+        const allowFetch = condition(this, opts);
         const store = _get(this, storeName);
         const dispatch = wrapDispatch(store.dispatch);
 
         const root = getRoot(store.state, namespace);
 
-        if (shouldFetch(root, id))
+        if (allowFetch && shouldFetch(root, id))
             dispatch(fetch, { id, ...opts });
 
         return resource(root, id);
