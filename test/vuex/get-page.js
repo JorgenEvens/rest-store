@@ -196,4 +196,40 @@ describe('Vuex.getPage(selector, listName, options)', () => {
         computed.call(cmp);
     });
 
+    it('Should not fetch if condition evaluates to false', () => {
+        let state = attach();
+        const dispatch = sinon.spy();
+        const condition = sinon.stub().returns(false);
+        const cmp = { $store: makeStore({ state, dispatch }) };
+
+        const computed = getPage(
+            () => 1,
+            'all',
+            { condition }
+        );
+
+        computed.call(cmp);
+
+        assert.equal(dispatch.callCount, 0, 'action not dispatched');
+        assert.equal(condition.callCount, 1, 'condition called');
+    });
+
+    it('Should fetch if condition evaluates to true', () => {
+        let state = attach();
+        const dispatch = sinon.spy();
+        const condition = sinon.stub().returns(true);
+        const cmp = { $store: makeStore({ state, dispatch }) };
+
+        const computed = getPage(
+            () => 1,
+            'all',
+            { condition }
+        );
+
+        computed.call(cmp);
+
+        assert.equal(dispatch.callCount, 1, 'action dispatched');
+        assert.equal(condition.callCount, 1, 'condition called');
+    });
+
 });
