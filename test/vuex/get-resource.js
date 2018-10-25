@@ -1,9 +1,17 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import { add } from '../../src';
+import { add, attach } from '../../src';
 
 import getResource from '../../src/vuex/get-resource';
+
+function makeStore(custom = {}) {
+    return {
+        registerModule() {},
+        commit() {},
+        ...custom
+    };
+}
 
 describe('Vuex.getResource(selector, options)', () => {
 
@@ -11,7 +19,7 @@ describe('Vuex.getResource(selector, options)', () => {
         const state = add({}, 2, { id: 2 });
         const dispatch = sinon.spy();
         const cmp = {
-            $store: { state, dispatch },
+            $store: makeStore({ state, dispatch }),
             resourceId: '2'
         };
 
@@ -23,10 +31,9 @@ describe('Vuex.getResource(selector, options)', () => {
     });
 
     it('Should fetch data when missing', () => {
+        const state = attach();
         const dispatch = sinon.spy().withArgs('fetch', { id: 2 });
-        const cmp = {
-            $store: { state: {}, dispatch }
-        };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getResource(() => 2);
         const result = computed.call(cmp);
@@ -36,10 +43,9 @@ describe('Vuex.getResource(selector, options)', () => {
     });
 
     it('Should support namespaces', () => {
+        const state = attach();
         const dispatch = sinon.spy().withArgs('tests/fetch', { id: 2 });
-        const cmp = {
-            $store: { state: {}, dispatch }
-        };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getResource(() => 2, { namespace: 'tests' });
         const result = computed.call(cmp);
@@ -51,9 +57,7 @@ describe('Vuex.getResource(selector, options)', () => {
     it('Should support selector callback', () => {
         const state = add({}, 2, { id: 2 });
         const dispatch = sinon.spy();
-        const cmp = {
-            $store: { state, dispatch }
-        };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getResource(() => 2);
         const result = computed.call(cmp);
@@ -63,10 +67,9 @@ describe('Vuex.getResource(selector, options)', () => {
     });
 
     it('Should support parameters', () => {
+        const state = attach();
         const dispatch = sinon.spy().withArgs('fetch', { id: 2, a: 'test' });
-        const cmp = {
-            $store: { state: {}, dispatch }
-        };
+        const cmp = { $store: makeStore({ state, dispatch }) };
 
         const computed = getResource(() => 2, { params: { a: 'test' } });
         computed.call(cmp);
@@ -75,9 +78,10 @@ describe('Vuex.getResource(selector, options)', () => {
     });
 
     it('Should support parameter callback', () => {
+        const state = attach();
         const dispatch = sinon.spy().withArgs('fetch', { id: 2, a: 'test' });
         const cmp = {
-            $store: { state: {}, dispatch },
+            $store: makeStore({ state, dispatch }),
             propA: 'test'
         };
 
@@ -85,6 +89,40 @@ describe('Vuex.getResource(selector, options)', () => {
         computed.call(cmp);
 
         assert(dispatch.called, 'dispatch called');
+    });
+
+    it('Should not fetch if condition evaluates to false', () => {
+        let state = attach();
+        const dispatch = sinon.spy();
+        const condition = sinon.stub().returns(false);
+        const cmp = { $store: makeStore({ state, dispatch }) };
+
+        const computed = getResource(
+            () => 1,
+            { condition }
+        );
+
+        computed.call(cmp);
+
+        assert.equal(dispatch.callCount, 0, 'action not dispatched');
+        assert.equal(condition.callCount, 1, 'condition called');
+    });
+
+    it('Should fetch if condition evaluates to true', () => {
+        let state = attach();
+        const dispatch = sinon.spy();
+        const condition = sinon.stub().returns(true);
+        const cmp = { $store: makeStore({ state, dispatch }) };
+
+        const computed = getResource(
+            () => 1,
+            { condition }
+        );
+
+        computed.call(cmp);
+
+        assert.equal(dispatch.callCount, 1, 'action dispatched');
+        assert.equal(condition.callCount, 1, 'condition called');
     });
 
 });
