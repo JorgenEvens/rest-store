@@ -5,13 +5,7 @@ import { attach, addRange, add } from '../../src';
 
 import getRange from '../../src/vuex/get-range';
 
-function makeStore(custom = {}) {
-    return {
-        registerModule() {},
-        commit() {},
-        ...custom
-    };
-}
+import { makeStore } from './util';
 
 describe('Vuex.getRange(selector, listName, options)', () => {
 

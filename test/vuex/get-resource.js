@@ -5,13 +5,7 @@ import { add, attach } from '../../src';
 
 import getResource from '../../src/vuex/get-resource';
 
-function makeStore(custom = {}) {
-    return {
-        registerModule() {},
-        commit() {},
-        ...custom
-    };
-}
+import { makeStore } from './util';
 
 describe('Vuex.getResource(selector, options)', () => {
 
