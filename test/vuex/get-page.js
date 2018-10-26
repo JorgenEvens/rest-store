@@ -5,13 +5,7 @@ import { attach, addRange, add } from '../../src';
 
 import getPage from '../../src/vuex/get-page';
 
-function makeStore(custom = {}) {
-    return {
-        registerModule() {},
-        commit() {},
-        ...custom
-    };
-}
+import { makeStore } from './util';
 
 describe('Vuex.getPage(selector, listName, options)', () => {
 
