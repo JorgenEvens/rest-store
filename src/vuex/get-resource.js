@@ -16,7 +16,7 @@ export default
 function getResource(selector, options) {
     options = { ...resourceDefaults, ...options };
 
-    const { storeName, params, condition } = options;
+    const { storeName, params, condition, placeholder = null } = options;
 
     const getId = typeof selector === 'function' ?
         selector : (cmp) => _get(cmp, selector);
@@ -42,6 +42,11 @@ function getResource(selector, options) {
         if (allowFetch && shouldFetch(root, id))
             dispatch(fetch, { id, ...opts });
 
-        return resource(root, id);
+        const value = resource(root, id);
+
+        if (value === null)
+            return placeholder;
+
+        return value;
     };
 }
