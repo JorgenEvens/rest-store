@@ -36,6 +36,20 @@ describe('Vuex.getResource(selector, options)', () => {
         assert(dispatch.calledOnce, 'dispatch called');
     });
 
+    it('Should return placeholder value when missing', () => {
+        const state = attach();
+        const dispatch = sinon.spy().withArgs('fetch', { id: 2 });
+        const cmp = { $store: makeStore({ state, dispatch }) };
+        const placeholder = { hello: 'test' };
+
+        const computed = getResource(() => 2, { placeholder });
+        const result = computed.call(cmp);
+
+        assert.strictEqual(result, placeholder);
+        assert.equal(result.hello, 'test');
+        assert(dispatch.calledOnce, 'dispatch called');
+    });
+
     it('Should support namespaces', () => {
         const state = attach();
         const dispatch = sinon.spy().withArgs('tests/fetch', { id: 2 });
