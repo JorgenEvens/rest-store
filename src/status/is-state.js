@@ -11,7 +11,7 @@ function isState(resource, state) {
         return false;
 
     const compare = typeof state === 'function' ?
-        state : (e, r = false) => r || e.state === state;
+        state : (e, r = false) => r || (e && e.state === state);
 
     if (Array.isArray(entry))
         return entry.reduce((r, e) => compare(e, r), (void 0));
