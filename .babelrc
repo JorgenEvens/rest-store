@@ -3,11 +3,12 @@
         [ "env", {
             "targets": {
                 "node": "current",
-                "browser": [ 'last 2 versions', 'not ie 11' ]
+                "browser": [ 'last 2 versions', 'not ie <= 10' ]
             }
         }]
     ],
     "plugins": [
+        "transform-runtime",
         "transform-export-extensions",
         "transform-class-properties",
         "transform-object-rest-spread"
