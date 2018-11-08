@@ -1,7 +1,7 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import { attach, addRange, add } from '../../src';
+import { attach, addRange, add, errorPage } from '../../src';
 
 import getPage from '../../src/vuex/get-page';
 
@@ -70,6 +70,28 @@ describe('Vuex.getPage(selector, listName, options)', () => {
 
         assert.equal(result.length, 0);
         assert(dispatch.calledOnce, 'dispatch called');
+    });
+
+    it('Should not fetch data when in error state', () => {
+        let state = attach();
+        state = errorPage(state, 'all', 1, new Error('failed'));
+
+        const dispatch = sinon.spy().withArgs('fetchPage', {
+            listName: 'all',
+            page: 1
+        });
+
+        const cmp = { $store: makeStore({ state, dispatch }) };
+
+        const computed = getPage(
+            () => 1,
+            'all'
+        );
+
+        const result = computed.call(cmp);
+
+        assert.equal(result.length, 10);
+        assert.equal(dispatch.callCount, 0, 'dispatch not called');
     });
 
     it('Should default to first page', () => {

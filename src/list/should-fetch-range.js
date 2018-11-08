@@ -1,5 +1,6 @@
 import isExpired from '../status/is-expired';
 import isOK from '../status/is-ok';
+import isError from '../status/is-error';
 import isLoading from '../status/is-loading';
 import _entries from './_entries';
 import _list from './_list';
@@ -7,7 +8,7 @@ import _total from './_total';
 
 function shouldFetch(entry) {
     // If entry is in a valid state don't refresh it
-    const isValid = isOK(entry) || isLoading(entry);
+    const isValid = isOK(entry) || isLoading(entry) || isError(entry);
 
     return !isValid || isExpired(entry);
 }
