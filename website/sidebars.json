@@ -5,8 +5,8 @@
         ]
     },
     "docs": {
-        "Documentation": [
-            "index"
+        "General": [
+            "overview"
         ],
         "Vuex Usage": [
             "vuex"

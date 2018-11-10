@@ -39,7 +39,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {doc: 'getting-started', label: 'Getting Started'},
-    {doc: 'index', label: 'Docs'},
+    {doc: 'overview', label: 'Docs'},
     {doc: 'api', label: 'API'},
     // {page: 'help', label: 'Help'},
     // {blog: true, label: 'Blog'},
@@ -78,7 +78,7 @@ const siteConfig = {
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
-    theme: 'default',
+    theme: 'atom-one-dark',
   },
 
   // Add custom scripts here that would be placed in <script> tags.

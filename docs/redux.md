@@ -1,7 +1,6 @@
 ---
-id: vuex
-title: Vuex Usage
-sidebar_label: Vuex Usage
+title: Redux Usage
+sidebar_label: Redux Usage
 ---
 
-Use rest-store in you Vue application using Vuex
+Use rest-store in you React application using Redux
