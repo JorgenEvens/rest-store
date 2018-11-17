@@ -6,6 +6,7 @@ import fetchPage from '../list/page';
 
 import { wrapDispatch } from './throttled-dispatch';
 import { updateListHash } from './_state-helper';
+import _transformable from './_transformable';
 import _selectors from './_selectors';
 import _compact from './_compact';
 import getRoot from './get-root';
@@ -42,7 +43,7 @@ function getPage(pageSelector, listName, options = {}) {
     if (namespace && typeof fetch === 'string')
         fetch = `${namespace}/${fetch}`;
 
-    return function() {
+    return _transformable(function() {
         const opts = getParams(this);
         const page =  getSelection(this, opts) || 1;
         const listName = getListName(this, opts);
@@ -62,5 +63,5 @@ function getPage(pageSelector, listName, options = {}) {
 
         const entries = fetchPage(root, listName, page, opts);
         return _compact(entries);
-    };
+    });
 }
