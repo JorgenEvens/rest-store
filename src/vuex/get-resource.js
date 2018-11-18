@@ -2,6 +2,7 @@ import _get from 'lodash/get';
 
 import { wrapDispatch } from './throttled-dispatch';
 import shouldFetch from '../resource/should-fetch';
+import _transformable from './_transformable';
 import resource from '../resource';
 import getRoot from './get-root';
 
@@ -30,7 +31,7 @@ function getResource(selector, options) {
     if (namespace && typeof fetch === 'string')
         fetch = `${namespace}/${fetch}`;
 
-    return function() {
+    return _transformable(function() {
         const id =  getId(this);
         const opts = getParams(this);
         const allowFetch = condition(this, opts);
@@ -48,5 +49,5 @@ function getResource(selector, options) {
             return placeholder;
 
         return value;
-    };
+    });
 }

@@ -1,6 +1,7 @@
 import _get from 'lodash/get';
 
 import shouldFetchRange from '../list/should-fetch-range';
+import _transformable from './_transformable';
 import fetchRange from '../list/range';
 import getRoot from './get-root';
 import _compact from './_compact';
@@ -33,7 +34,7 @@ function getRange(rangeSelector, listName, options = {}) {
     if (namespace && typeof fetch === 'string')
         fetch = `${namespace}/${fetch}`;
 
-    return function() {
+    return _transformable(function() {
         const opts = getParams(this);
         const listName = getListName(this, opts);
         const { start = 0, end = 9 } = getSelection(this, opts) || {};
@@ -51,5 +52,5 @@ function getRange(rangeSelector, listName, options = {}) {
 
         const entries = fetchRange(root, listName, start, end, opts);
         return _compact(entries);
-    };
+    });
 }
