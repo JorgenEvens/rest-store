@@ -1,10 +1,26 @@
+import { is, isNil } from '../utils';
+import { ENTRY } from '../constants';
+
+function getEntry(v) {
+    return v && (is(v, 'symbol') ? v : v[ENTRY]);
+}
+
 export default
 function transformable(fn) {
     const transformations = [];
 
     function exec() {
         return transformations.reduce((r, f) => {
-            return f.call(this, r);
+            const entry = getEntry(r);
+            const result = f.call(this, r);
+
+            if (entry && isNil(result))
+                return ENTRY;
+
+            if (entry && result)
+                result[ENTRY] = entry;
+
+            return result;
         }, fn.call(this));
     }
 
