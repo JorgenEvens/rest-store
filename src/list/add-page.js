@@ -9,5 +9,5 @@ function addPage(root, listName, page, data, opts = {}) {
 
     data = _expand(data, pageSize);
 
-    return addRange(root, listName, start, end, data);
+    return addRange(root, listName, start, end, data, opts);
 }
