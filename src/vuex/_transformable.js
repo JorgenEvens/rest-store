@@ -17,7 +17,10 @@ function transformable(fn) {
             if (entry && isNil(result))
                 return ENTRY;
 
-            if (entry && result)
+            if (is(result, 'symbol'))
+                return result;
+
+            if (entry && result && result[ENTRY] !== entry)
                 result[ENTRY] = entry;
 
             return result;
