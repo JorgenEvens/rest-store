@@ -7,6 +7,8 @@ export isError from './status/is-error';
 export isLoading from './status/is-loading';
 export isExpired from './status/is-expired';
 export isMissing from './status/is-missing';
+export isPending from './status/is-pending';
+export isViewable from './status/is-viewable';
 
 // Should fetch
 export shouldFetch from './resource/should-fetch';
