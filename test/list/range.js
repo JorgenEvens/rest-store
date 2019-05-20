@@ -1,7 +1,8 @@
 import assert from 'assert';
 
-import { ENTRY } from '../../src/constants';
+import { ENTRY, OK, EXPIRED } from '../../src/constants';
 import range from '../../src/list/range';
+import isOK from '../../src/status/is-ok';
 
 describe('# range(root, list, start, end)', () => {
 
@@ -119,5 +120,31 @@ describe('# range(root, list, start, end)', () => {
 
         assert(Array.isArray(result[ENTRY].entries), 'entries is an array');
         assert.equal(result[ENTRY].total, 0);
+    });
+
+    it('Should verify resource status', () => {
+        const state = {
+            resources: {
+                1: { data: { id: 1 }, state: OK },
+                2: { data: { id: 2 }, state: EXPIRED }
+            },
+            list: {
+                all: {
+                    total: 10,
+                    entries: [
+                        { id: 1, state: OK },
+                        { id: 2, state: OK }
+                    ]
+                }
+            }
+        };
+
+        const result = range(state, 'all', 0, 1);
+        assert.deepEqual(result, [
+            { id: 1 },
+            { id: 2 }
+        ]);
+
+        assert(!isOK(result), 'List is not in OK state');
     });
 });
