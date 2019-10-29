@@ -10,7 +10,7 @@ function page(root, listName, page, opts = {}) {
     page = Math.max(0, page);
     const pages = pageCount(root, listName, opts);
 
-    if (page > pages)
+    if (page > pages && (pages != 0 || page > 1))
         return [];
 
     const list = root.list[listName];

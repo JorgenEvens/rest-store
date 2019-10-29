@@ -5,6 +5,7 @@ import add from '../../src/resource/add';
 import loading from '../../src/resource/loading';
 
 import getPage from '../../src/list/page';
+import options from '../../src/list/options';
 import addPage from '../../src/list/add-page';
 import loadingRange from '../../src/list/loading-range';
 
@@ -66,6 +67,35 @@ describe('# is-ok', () => {
         const res = getPage(state, 'all', 1);
 
         assert(isOk(res), 'list is OK');
+    });
+
+    it('Should read OK state from empty entry array for first page', () => {
+        let state = null;
+        state = addPage(state, 'all', 1, []);
+        state = options(state, 'all', { total: 0 });
+
+        const res = getPage(state, 'all', 1);
+
+        assert(isOk(res), 'list is OK');
+    });
+
+    it('Should read not-OK state from empty entry array for second page', () => {
+        let state = null;
+        state = addPage(state, 'all', 1, []);
+        state = options(state, 'all', { total: 0 });
+
+        const res = getPage(state, 'all', 2);
+
+        assert(!isOk(res), 'list is not-OK');
+    });
+
+    it('Should read not-OK state from empty entry array without total', () => {
+        let state = null;
+        state = addPage(state, 'all', 1, []);
+
+        const res = getPage(state, 'all', 1);
+
+        assert(!isOk(res), 'list is not OK');
     });
 
     it('Should read not-OK state from loading entry array', () => {
