@@ -3,6 +3,8 @@ import sinon from 'sinon';
 
 import { wrapDispatch } from '../../src/vuex/throttled-dispatch';
 
+const sleep = (ttl) => new Promise(resolve => setTimeout(resolve, ttl));
+
 describe('Vuex._throttledDispatch()', () => {
 
     it('Should limit the times an action can be called', () => {
@@ -59,6 +61,37 @@ describe('Vuex._throttledDispatch()', () => {
         const wrapped2 = wrapDispatch(dispatch2);
 
         assert.notStrictEqual(wrapped1, wrapped2);
+    });
+
+    it('Should only trigger once on multiple calls', async () => {
+        const dispatch = sinon.spy();
+        const wrapped = wrapDispatch(dispatch);
+
+        wrapped('test', { hello: 'world' });
+        wrapped('test', { hello: 'world' });
+        assert.equal(dispatch.callCount, 1);
+
+        await sleep(1050);
+
+        assert.equal(dispatch.callCount, 1);
+    });
+
+    it('Should trigger more than once past the 10ms delay', async () => {
+        const dispatch = sinon.spy();
+        const wrapped = wrapDispatch(dispatch);
+
+        wrapped('test', { hello: 'world' });
+        wrapped('test', { hello: 'world' });
+        assert.equal(dispatch.callCount, 1);
+
+        await sleep(30);
+        wrapped('test', { hello: 'world' });
+        wrapped('test', { hello: 'world' });
+
+        assert.equal(dispatch.callCount, 1);
+
+        await sleep(1050);
+        assert.equal(dispatch.callCount, 2);
     });
 
 });
