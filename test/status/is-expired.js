@@ -49,7 +49,12 @@ describe('# is-expired', () => {
 
     it('Should detect expired state in lists', () => {
         const fixt_ids = [1,2,3,4,5];
-        const state = addRange(null, 'test', 0, 4, fixt_ids, { ttl: -1 });
+        let state = {};
+        state = addRange({}, 'test', 0, 4, fixt_ids, { ttl: -1 });
+        fixt_ids.forEach(id => {
+            state = add(state, id, { id });
+        });
+
         const res = getRange(state, 'test', 0, 4);
 
         assert(isExpired(res), 'list is expired');
