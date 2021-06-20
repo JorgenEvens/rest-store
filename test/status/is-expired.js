@@ -3,6 +3,9 @@ import assert from 'assert';
 import get from '../../src/resource';
 import add from '../../src/resource/add';
 
+import getRange from '../../src/list/range';
+import addRange from '../../src/list/add-range';
+
 import { ENTRY } from '../../src/constants';
 
 import isExpired from '../../src/status/is-expired';
@@ -42,6 +45,14 @@ describe('# is-expired', () => {
         };
 
         assert(!isExpired(fixt_resource), 'resource has not expired');
+    });
+
+    it('Should detect expired state in lists', () => {
+        const fixt_ids = [1,2,3,4,5];
+        const state = addRange(null, 'test', 0, 4, fixt_ids, { ttl: -1 });
+        const res = getRange(state, 'test', 0, 4);
+
+        assert(isExpired(res), 'list is expired');
     });
 
 });
