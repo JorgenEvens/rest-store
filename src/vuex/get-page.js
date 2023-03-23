@@ -4,7 +4,7 @@ import _omit from 'lodash/omit';
 import shouldFetchPage from '../list/should-fetch-page';
 import fetchPage from '../list/page';
 
-import { wrapDispatch } from './throttled-dispatch';
+import { wrapDispatch } from '../utils/throttled-dispatch';
 import { updateListHash } from './_state-helper';
 import _transformable from './_transformable';
 import _selectors from './_selectors';

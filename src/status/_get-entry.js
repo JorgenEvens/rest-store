@@ -1,12 +1,13 @@
-import { ENTRY } from '../constants';
+import { getEntry } from '../utils/entry';
 
 export default
 function _getEntry(resource) {
     if (!resource)
         return null;
 
-    if (resource[ENTRY])
-        return resource[ENTRY];
+    const entry = getEntry(resource);
+    if (entry)
+        return entry;
 
     if (typeof resource.state === 'symbol')
         return resource;

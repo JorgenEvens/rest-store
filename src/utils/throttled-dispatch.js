@@ -68,6 +68,8 @@ function wrapDispatch(dispatch) {
         return throttled.get(dispatch);
 
     const wrapper = __debounce(dispatch, 1000, {
+        leading: true,
+        trailing: false,
         id: (...args) => hash(args)
     });
 

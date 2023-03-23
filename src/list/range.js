@@ -3,7 +3,7 @@ import _total from './_total';
 import _entries from './_entries';
 import resource from '../resource';
 
-import { ENTRY } from '../constants';
+import { setEntry } from '../utils/entry';
 import isError from '../status/is-error';
 
 export default
@@ -12,7 +12,7 @@ function range(root, listName, start, end) {
     const list = _list(root, listName);
     if (_total(list) < 1) {
         const entries = [];
-        entries[ENTRY] = list;
+        setEntry(entries, list);
         return entries;
     }
 
@@ -24,7 +24,7 @@ function range(root, listName, start, end) {
         return resource(root, entry && entry.id);
     });
 
-    result[ENTRY] = entries;
+    setEntry(result, entries);
 
     return result;
 }
