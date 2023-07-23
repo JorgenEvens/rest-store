@@ -1,4 +1,4 @@
-import { ENTRY } from '../constants';
+import { setEntry } from '../utils/entry';
 
 export default
 function _update(entry, updates) {
@@ -7,13 +7,12 @@ function _update(entry, updates) {
         ...updates
     };
 
-    entry.data = entry.data && {
-        ...entry.data,
-        [ENTRY]: entry
-    };
+    if (entry.data) {
+        setEntry(entry.data, entry);
+    }
 
     if (entry.error)
-        entry.error[ENTRY] = entry;
+        setEntry(entry.error, entry);
 
     return entry;
 }

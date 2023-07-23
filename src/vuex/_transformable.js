@@ -1,9 +1,5 @@
 import { is, isNil } from '../utils';
-import { ENTRY } from '../constants';
-
-function getEntry(v) {
-    return v && (is(v, 'symbol') ? v : v[ENTRY]);
-}
+import { getEntry, setEntry } from '../utils/entry';
 
 export default
 function transformable(fn) {
@@ -15,13 +11,13 @@ function transformable(fn) {
             const result = f.call(this, r);
 
             if (entry && isNil(result))
-                return ENTRY;
+                return entry.state;
 
             if (is(result, 'symbol'))
                 return result;
 
-            if (entry && result && result[ENTRY] !== entry)
-                result[ENTRY] = entry;
+            if (entry && result && getEntry(result) !== entry)
+                setEntry(result, entry);
 
             return result;
         }, fn.call(this));

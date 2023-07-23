@@ -1,7 +1,7 @@
 import assert from 'assert';
 import sinon from 'sinon';
 
-import { wrapDispatch } from '../../src/vuex/throttled-dispatch';
+import { wrapDispatch } from '../../src/utils/throttled-dispatch';
 
 const sleep = (ttl) => new Promise(resolve => setTimeout(resolve, ttl));
 

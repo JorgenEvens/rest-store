@@ -1,6 +1,6 @@
 import _get from 'lodash/get';
 
-import { wrapDispatch } from './throttled-dispatch';
+import { wrapDispatch } from '../utils/throttled-dispatch';
 import shouldFetch from '../resource/should-fetch';
 import _transformable from './_transformable';
 import resource from '../resource';

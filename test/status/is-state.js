@@ -1,7 +1,8 @@
 import assert from 'assert';
 
 import isState from '../../src/status/is-state';
-import { ENTRY, OK, ERROR, LOADING } from '../../src/constants';
+import { setEntry } from '../../src/utils/entry';
+import { OK, ERROR, LOADING } from '../../src/constants';
 
 describe('# is-state', () => {
 
@@ -18,11 +19,8 @@ describe('# is-state', () => {
     });
 
     it('Should read state from entry', () => {
-        const fixt_resource = {
-            [ENTRY]: {
-                state: OK
-            }
-        };
+        const fixt_resource = {};
+        setEntry(fixt_resource, { state: OK });
 
         assert(isState(fixt_resource, OK));
     });
@@ -33,10 +31,10 @@ describe('# is-state', () => {
             { id: 2 }
         ];
 
-        fixt_list[ENTRY] = [
+        setEntry(fixt_list, [
             { state: OK },
             { state: OK }
-        ];
+        ]);
 
         assert(isState(fixt_list, OK));
     });

@@ -6,7 +6,7 @@ import getRange from '../../src/vuex/get-range';
 import getTotal from '../../src/vuex/get-total';
 import getResource from '../../src/vuex/get-resource';
 
-import { ENTRY } from '../../src/constants';
+import { getEntry } from '../../src/utils/entry';
 import { attach, addPage, add, options } from '../../src';
 
 import { makeStore } from './util';
@@ -129,8 +129,10 @@ describe('Vuex.*.transform', () => {
         const result = cmp.users();
 
         assert.equal(transform.callCount, 1);
-        assert(result[ENTRY]);
-        assert.equal(result[ENTRY].length, 3);
+
+        const entry = getEntry(result);
+        assert(entry);
+        assert.equal(entry.length, 3);
     });
 
 });

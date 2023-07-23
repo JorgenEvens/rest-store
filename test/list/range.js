@@ -1,6 +1,7 @@
 import assert from 'assert';
 
-import { ENTRY, OK, EXPIRED } from '../../src/constants';
+import { OK, EXPIRED } from '../../src/constants';
+import { getEntry } from '../../src/utils/entry';
 import range from '../../src/list/range';
 import isOK from '../../src/status/is-ok';
 
@@ -116,10 +117,12 @@ describe('# range(root, list, start, end)', () => {
     it('Should set valid ENTRY for lists with total=0', () => {
         const result = range(fixt_state, 'totalZero', 10, 19);
         assert.equal(result.length, 0);
-        assert(result[ENTRY]);
 
-        assert(Array.isArray(result[ENTRY].entries), 'entries is an array');
-        assert.equal(result[ENTRY].total, 0);
+        const entry = getEntry(result);
+        assert(entry);
+
+        assert(Array.isArray(entry.entries), 'entries is an array');
+        assert.equal(entry.total, 0);
     });
 
     it('Should verify resource status', () => {

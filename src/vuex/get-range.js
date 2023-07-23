@@ -7,7 +7,7 @@ import getRoot from './get-root';
 import _compact from './_compact';
 import _selectors from './_selectors';
 import { updateListHash } from './_state-helper';
-import { wrapDispatch } from './throttled-dispatch';
+import { wrapDispatch } from '../utils/throttled-dispatch';
 
 const rangeDefaults = {
     namespace: null,
