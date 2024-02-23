@@ -1,4 +1,4 @@
-import _get from 'lodash/get';
+import _get from './_get';
 
 import shouldFetchRange from '../list/should-fetch-range';
 import _transformable from './_transformable';

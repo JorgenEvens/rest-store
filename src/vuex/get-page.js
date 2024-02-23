@@ -1,4 +1,4 @@
-import _get from 'lodash/get';
+import _get from './_get';
 import _omit from 'lodash/omit';
 
 import shouldFetchPage from '../list/should-fetch-page';

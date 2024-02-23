@@ -1,4 +1,4 @@
-import _get from 'lodash/get';
+import _get from './_get';
 
 import { wrapDispatch } from '../utils/throttled-dispatch';
 import shouldFetch from '../resource/should-fetch';
