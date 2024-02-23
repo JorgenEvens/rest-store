@@ -1,4 +1,4 @@
-import _get from 'lodash/get';
+import _get from './_get';
 
 import getRoot from './get-root';
 import _selectors from './_selectors';

@@ -1,4 +1,4 @@
-import _get from 'lodash/get';
+import _get from './_get';
 import hash from 'hash-it';
 
 const defaultHasher = (v) => hash(v);
